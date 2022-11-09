@@ -11,11 +11,10 @@ class BmiResponseAdapter(LogicAdapter):
         wzrost_reg2 = re.compile(r'((mam)\s*(\d+[,\.]?\d*))|(\d+[,\.]?\d*)\s*(wzrostu|wysokości|cm|m)', re.I)
         waga_reg = re.compile(r'((ważę|waże)\s+\d+)|(\d+\s*kg)', re.I)
 
-        text = statement.text
-        wzrost = wzrost_reg2.search(text)
-        waga = waga_reg.search(text)
+        wzrost = wzrost_reg2.search(statement.text)
+        waga = waga_reg.search(statement.text)
 
-        if re.search(r'bmi', text, re.I):
+        if re.search(r'bmi', statement.text, re.I):
             return True
 
         if waga != None:
@@ -45,6 +44,10 @@ class BmiResponseAdapter(LogicAdapter):
 
         bmi = self.waga / (self.wzrost * self.wzrost)
         bmi = bmi.__round__(2)
+
+
+        self.wzrost = 0
+        self.waga = 0
 
         if bmi < 18.5:
             rezultat = 'Musisz jeść więcej'

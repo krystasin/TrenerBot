@@ -1,31 +1,12 @@
 from chatterbot import ChatBot
-from chatterbot.conversation import Statement
 from chatterbot.trainers import ListTrainer
-import re
-
-waga_reg = r'%d+\s*kg'
-inp = '44 kg'
-res = re.findall(waga_reg, inp )
-
-
-
-
-
-
-
-
-
-
-
 
 chatbot = ChatBot(
     'Norman',
     storage_adapter='chatterbot.storage.SQLStorageAdapter',
     logic_adapters=[
         {
-            'import_path': 'adapter.BmiResponseAdapter',
-            'default_response': 'I am sorry, but I do not understand.',
-            'maximum_similarity_threshold': 0.90
+            'import_path': 'adapter.BmiResponseAdapter'
         },
         "chatterbot.logic.BestMatch"
     ]
@@ -102,7 +83,6 @@ listTrainer.train([
     "120",
     "czego, sekund ?!",
 ])
-
 
 
 
